@@ -20,10 +20,62 @@ service: AWS-dynamic-DNS
 provider:
   name: aws
   runtime: python2.7
+  role: lambdaR53role
 
 # you can overwrite defaults here
 #  stage: dev
-#  region: us-east-1
+  region: ${file(./configuration.yml):AWS-region}
+
+
+functions:
+  checkIP:
+    handler: handler.checkIP
+    role: lambdaR53role
+    environment:
+      ZONE_NAME: ${file(./configuration.yml):AWS-hosted-zone-name}
+      DNS_ADDRESS: ${file(./configuration.yml):AWS-DNS-address}
+      DNS_TTL: ${file(./configuration.yml):AWS-DNS-TTL}
+    events:
+      - http:
+          method: get
+          path: checkIP
+          integration: lambda
+          request:
+            template:
+              application/json: '{ "sourceip" : "$context.identity.sourceIp" }'
+              text/xhtml: '{ "sourceip" : "$context.identity.sourceIp" }'
+
+resources:
+  Resources:
+    lambdaR53role:
+      Type: AWS::IAM::Role
+      Properties:
+        Path: /checkIP/
+        RoleName: LambdaR53Role
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal: 
+                Service: 
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: LambdaRoute53ControlPolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement: 
+                - Effect: Allow
+                  Action:
+                    - route53:GetHostedZone
+                    - route53:ListResourceRecordSets
+                    - route53:ChangeResourceRecordSets
+                  Resource: "arn:aws:route53:::hostedzone/*"
+                - Effect: Allow
+                  Action:
+                    - route53:ListHostedZonesByName
+                  Resource: "*"
+
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -53,9 +105,7 @@ provider:
 #    - exclude-me.py
 #    - exclude-me-dir/**
 
-functions:
-  hello:
-    handler: handler.hello
+
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
