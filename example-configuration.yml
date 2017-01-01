@@ -1,0 +1,21 @@
+# example-configuration.yml
+#
+# Configuration file for all AWS-dynamic-DNS settings
+# 
+# Create a copy of this file as "configuration.yml" and set your desired value
+
+# AWS-region - the AWS region that the dynamic DNS lambda function will be deployed to
+AWS-region: eu-west-1
+
+# AWS-hosted-zone-name - The name of the hosted zone in which you wish to update the DNS entry with a trailing '.'
+#     E.g. example.com.
+AWS-hosted-zone-name: <--->.<->.
+
+# AWS-DNS-address - The address that's to be set to the calling IP address with a trailing '.'
+#     E.g. home.example.com.
+AWS-DNS-address: home.<--->.<->.
+
+# AWS-DNS-TTL - The TTL (Time To Live) value in seconds for the DNS record.
+#     Defaults to 300 (5mins) - DNS updates could take up to this amount of time to take effect.
+AWS-DNS-TTL: 300 
+
