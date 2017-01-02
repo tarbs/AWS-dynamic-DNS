@@ -45,3 +45,4 @@ The deployment will set up its own IAM role that only has the minimum Route53 pe
 
 * Make the Dynamic DNS address to be updated an API parameter to be supplied on each call (to enable the API to handle multiple DNS addresses)
 * Add some simple Dynamic DNS client utils for different platforms.
+* A whole bunch of bulletproofing for each API call.
