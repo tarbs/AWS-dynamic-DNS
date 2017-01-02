@@ -24,3 +24,18 @@ Created with Serverless v1.4
 An example Linux curl command:
 
     curl -H "x-api-key: <your API key here>" -H "Content-Type: application/json" <your API endpoint address here>
+
+##Uninstallation
+
+From your workstation execute __"serverless remove"__ to remove the function and API gateway from your AWS account - remember that the __AWS-region__ setting in __"configuration.yml"__ must match the API function that you want to remove.
+
+OR - you could manually delete all of the AWS entities that have been created.
+
+
+##Notes
+
+In order to be able to deploy this function your current access to the AWS account must include :
+*   All permissions required by your version of the Serverless framework to be able to deploy a lambda function + API Gateway
+*   IAM permissions to be able to create a new IAM role that has access to Route53.
+
+The deployment will set up its own IAM role that only has the minimum Route53 permissions required to perform the DNS updates - your administrative access will not be used by the API.
