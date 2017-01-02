@@ -21,6 +21,8 @@ provider:
   name: aws
   runtime: python2.7
   role: lambdaR53role
+  apiKeys:
+    -  DNSKey
 
 # you can overwrite defaults here
 #  stage: dev
@@ -37,6 +39,7 @@ functions:
       DNS_TTL: ${file(./configuration.yml):AWS-DNS-TTL}
     events:
       - http:
+          private: true
           method: get
           path: checkIP
           integration: lambda
