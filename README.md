@@ -39,3 +39,9 @@ In order to be able to deploy this function your current access to the AWS accou
 *   IAM permissions to be able to create a new IAM role that has access to Route53.
 
 The deployment will set up its own IAM role that only has the minimum Route53 permissions required to perform the DNS updates - your administrative access will not be used by the API.
+
+
+##TODO
+
+* Make the Dynamic DNS address to be updated an API parameter to be supplied on each call (to enable the API to handle multiple DNS addresses)
+* Add some simple Dynamic DNS client utils for different platforms.
