@@ -12,7 +12,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/AWS-dynamic-DNS/dev/1483312418527-2017-01-01T23:13:38.527Z/AWS-dynamic-DNS.zip"
+          "S3Key": "serverless/AWS-dynamic-DNS/dev/1483365434386-2017-01-02T13:57:14.386Z/AWS-dynamic-DNS.zip"
         },
         "FunctionName": "AWS-dynamic-DNS-dev-checkIP",
         "Handler": "handler.checkIP",
@@ -37,14 +37,14 @@
         "lambdaR53role"
       ]
     },
-    "CheckIPLambdaVersion4ILn5C0EZ8EZI5JJoCa0SZpvGTGVhWj9nXcH5nOM": {
+    "CheckIPLambdaVersiona9UcNspYoI1sB5h0os7oSatEOdWbaJyDoAhgIRF1c": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CheckIPLambdaFunction"
         },
-        "CodeSha256": "+4ILn5C0/EZ8EZI5JJoCa0SZpvGTGVhWj9nXcH5n/OM="
+        "CodeSha256": "/a9UcNspYoI1sB5h0os7o+SatEOdWbaJyDoAhgIRF1c="
       }
     },
     "ApiGatewayRestApi": {
@@ -214,7 +214,7 @@
         ]
       }
     },
-    "ApiGatewayDeployment1483312418537": {
+    "ApiGatewayDeployment1483365434397": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -325,7 +325,7 @@
     "CheckIPLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CheckIPLambdaVersion4ILn5C0EZ8EZI5JJoCa0SZpvGTGVhWj9nXcH5nOM"
+        "Ref": "CheckIPLambdaVersiona9UcNspYoI1sB5h0os7oSatEOdWbaJyDoAhgIRF1c"
       }
     },
     "ServiceEndpoint": {
