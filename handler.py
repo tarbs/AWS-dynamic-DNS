@@ -5,8 +5,6 @@ import re
 def checkIP(event, context):
 
     # TODO ensure that function will create new recordset if required.
-    # TODO add API key
-    # TODO Validate all values
     # TODO add tests
 
     # Set up process variables
