@@ -1,6 +1,9 @@
 import boto3
 import os
 import re 
+import logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 def checkIP(event, context):
 
@@ -18,12 +21,18 @@ def checkIP(event, context):
     dns_address_string = os.environ["DNS_ADDRESS"]
     dns_ttl_string = os.environ["DNS_TTL"]
 
+    logger.info('Received event{}'.format(event))
+    logger.info('  Hosted Zone : ' + hosted_zone_name)
+    logger.info('  DNS address : ' + dns_address_string)
+    logger.info('  TTL value   : ' + dns_ttl_string)
+
     # Validate the supplied IP addresses
     if validate_ip(source_ip_string):
         source_ip = source_ip_string
     else:
         error = True
         error_message = "The source IP address valus is not valid - value is : " + source_ip_string
+        logger.error(error_message)
 
     # Validate the supplied DNS address
     if is_valid_hostname(dns_address_string):
@@ -31,6 +40,7 @@ def checkIP(event, context):
     else:
         error = True
         error_message = "The supplied DNS address is not a valid domain name - the supplied value is : " + dns_address_string
+        logger.error(error_message)
 
     # Validate the TTL value
     try:
@@ -38,6 +48,7 @@ def checkIP(event, context):
     except ValueError:
         error = True
         error_message = "TTL value must be an integer - the supplied value is : " + dns_ttl_string
+        logger.error(error_message)
 
     if not error:
         r53_client = boto3.client('route53')
@@ -83,6 +94,8 @@ def checkIP(event, context):
             )
         else:
             action_message = "IP addresses match - no update required"
+
+        logger.info(action_message)
 
         body = {
             "message": action_message,
