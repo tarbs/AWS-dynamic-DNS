@@ -12,7 +12,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/AWS-dynamic-DNS/dev/1483366066878-2017-01-02T14:07:46.878Z/AWS-dynamic-DNS.zip"
+          "S3Key": "serverless/AWS-dynamic-DNS/dev/1483904405879-2017-01-08T19:40:05.879Z/AWS-dynamic-DNS.zip"
         },
         "FunctionName": "AWS-dynamic-DNS-dev-checkIP",
         "Handler": "handler.checkIP",
@@ -37,14 +37,14 @@
         "lambdaR53role"
       ]
     },
-    "CheckIPLambdaVersionVM0CKV6ZybulgMohrRWXVoE51P37UdYFzrWH6T2C0k": {
+    "CheckIPLambdaVersionCVFNwLpdJo426DLfPlbFYA8aX7ZjjWU41kMKwGn4BaM": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CheckIPLambdaFunction"
         },
-        "CodeSha256": "VM0CKV6ZybulgMohrRWXVoE51P37Ud/YFzrWH6T2C0k="
+        "CodeSha256": "CVFNwLpdJo426DLfPlbFYA8aX7ZjjWU41kMKwGn4BaM="
       }
     },
     "ApiGatewayRestApi": {
@@ -215,7 +215,7 @@
         ]
       }
     },
-    "ApiGatewayDeployment1483366066888": {
+    "ApiGatewayDeployment1483904405889": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -241,7 +241,7 @@
           }
         ]
       },
-      "DependsOn": "ApiGatewayDeployment1483366066888"
+      "DependsOn": "ApiGatewayDeployment1483904405889"
     },
     "CheckIPLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
@@ -316,11 +316,25 @@
                     "route53:ListHostedZonesByName"
                   ],
                   "Resource": "*"
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": "*"
                 }
               ]
             }
           }
         ]
+      }
+    },
+    "CWLGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/AWS-dynamic-DNS-dev-checkIP"
       }
     }
   },
@@ -342,7 +356,7 @@
     "CheckIPLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CheckIPLambdaVersionVM0CKV6ZybulgMohrRWXVoE51P37UdYFzrWH6T2C0k"
+        "Ref": "CheckIPLambdaVersionCVFNwLpdJo426DLfPlbFYA8aX7ZjjWU41kMKwGn4BaM"
       }
     },
     "ServiceEndpoint": {

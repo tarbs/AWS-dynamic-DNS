@@ -78,6 +78,16 @@ resources:
                   Action:
                     - route53:ListHostedZonesByName
                   Resource: "*"
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource: "*"
+
+    CWLGroup:
+      Type: AWS::Logs::LogGroup
+      Properties:
+        LogGroupName: "/aws/lambda/AWS-dynamic-DNS-dev-checkIP"
 
 
 # you can add statements to the Lambda function's IAM Role here
