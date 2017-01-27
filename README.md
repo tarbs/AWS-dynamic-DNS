@@ -13,7 +13,7 @@ Created with Serverless v1.5
 * An AWS account that you have admin access to.
 * A hosted zone within Route53 of the AWS account.
 * The AWS CLI installed and configured on your workstation with access to the AWS account.
-* Serverless 1.4+ installed on your workstation.
+* Serverless 1.5+ installed on your workstation.
 
 ##Installation and deployment
 
@@ -33,7 +33,7 @@ An example Linux curl command:
 
 When updating Route53 to point to your new IP address this function can also update EC2 security groups to switch ingress rules from the previous IP address to the new one.
 
-To use this functionality you need to add a tag to the chosen security group(s) with the key of "DynamicProtocol" and a value of a comma separated TCP protocols to enable. For example:
+To use this functionality you need to add a tag to the chosen security group(s) with the key of __"DynamicProtocol"__ and a value of a comma separated list of TCP protocols to enable. For example:
 
      Key: "DynamicProtocol" 
      Value: 22,80
@@ -53,7 +53,7 @@ In order to be able to deploy this function your current access to the AWS accou
 *   All permissions required by your version of the Serverless framework to be able to deploy a lambda function + API Gateway
 *   IAM permissions to be able to create a new IAM role that has access to Route53.
 
-The deployment will set up its own IAM role that only has the minimum Route53 permissions required to perform the DNS updates - your administrative access will not be used by the API.
+The deployment will set up its own IAM role that only has the minimum Route53 and ec2 security group permissions required to perform the DNS updates - your administrative access will not be used by the API.
 
 
 ##TODO
