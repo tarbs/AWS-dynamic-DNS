@@ -6,7 +6,7 @@ Currently only supports a single target DNS alias.
 
 Can be used to update EC2 security groups to enable ingress from the IP address calling the function.
 
-Created with Serverless v1.4
+Created with Serverless v1.5
 
 ##Prerequisites
 
