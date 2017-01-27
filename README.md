@@ -2,6 +2,10 @@
 
 Dynamic DNS via AWS for those without static IPs.
 
+Currently only supports a single target DNS alias.
+
+Can be used to update EC2 security groups to enable ingress from the IP address calling the function.
+
 Created with Serverless v1.4
 
 ##Prerequisites
@@ -23,7 +27,18 @@ Created with Serverless v1.4
 
 An example Linux curl command:
 
-    curl -H "x-api-key: <your API key here>" -H "Content-Type: application/json" <your API endpoint address here>
+    `curl -H "x-api-key: <your API key here>" -H "Content-Type: application/json" <your API endpoint address here>`
+
+##Using the EC2 Security Group update feature
+
+When updating Route53 to point to your new IP address this function can also update EC2 security groups to switch ingress rules from the previous IP address to the new one.
+
+To use this functionality you need to add a tag to the chosen security group(s) with the key of "DynamicProtocol" and a value of a comma separated TCP protocols to enable. For example:
+
+    `Key: "DynamicProtocol' 
+     Value: 22,80`
+
+
 
 ##Uninstallation
 
