@@ -35,7 +35,7 @@ When updating Route53 to point to your new IP address this function can also upd
 
 To use this functionality you need to add a tag to the chosen security group(s) with the key of "DynamicProtocol" and a value of a comma separated TCP protocols to enable. For example:
 
-     Key: "DynamicProtocol' 
+     Key: "DynamicProtocol" 
      Value: 22,80
 
 
