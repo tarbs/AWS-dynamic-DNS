@@ -83,6 +83,16 @@ resources:
                     - logs:CreateLogStream
                     - logs:PutLogEvents
                   Resource: "*"
+          - PolicyName: LambdaEC2SecGroupPolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement: 
+                - Effect: Allow
+                  Action:
+                    - ec2:DescribeSecurityGroups
+                    - ec2:AuthorizeSecurityGroupIngress
+                    - ec2:RevokeSecurityGroupIngress
+                  Resource: "*"
 
     CWLGroup:
       Type: AWS::Logs::LogGroup

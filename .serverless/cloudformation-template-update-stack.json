@@ -12,7 +12,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/AWS-dynamic-DNS/dev/1483904405879-2017-01-08T19:40:05.879Z/AWS-dynamic-DNS.zip"
+          "S3Key": "serverless/AWS-dynamic-DNS/dev/1485530042474-2017-01-27T15:14:02.474Z/AWS-dynamic-DNS.zip"
         },
         "FunctionName": "AWS-dynamic-DNS-dev-checkIP",
         "Handler": "handler.checkIP",
@@ -37,14 +37,14 @@
         "lambdaR53role"
       ]
     },
-    "CheckIPLambdaVersionCVFNwLpdJo426DLfPlbFYA8aX7ZjjWU41kMKwGn4BaM": {
+    "CheckIPLambdaVersionJlmCZzNfl4Ahe0suWJdbbv586DD5ctXeHUD0QOFEwoc": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "CheckIPLambdaFunction"
         },
-        "CodeSha256": "CVFNwLpdJo426DLfPlbFYA8aX7ZjjWU41kMKwGn4BaM="
+        "CodeSha256": "JlmCZzNfl4Ahe0suWJdbbv586DD5ctXeHUD0QOFEwoc="
       }
     },
     "ApiGatewayRestApi": {
@@ -106,7 +106,7 @@
           "PassthroughBehavior": "NEVER",
           "RequestTemplates": {
             "application/json": "{ \"sourceip\" : \"$context.identity.sourceIp\" }",
-            "application/x-www-form-urlencoded": "\n    #define( $body )\n      {\n      #foreach( $token in $input.path('$').split('&') )\n        #set( $keyVal = $token.split('=') )\n        #set( $keyValSize = $keyVal.size() )\n        #if( $keyValSize >= 1 )\n          #set( $key = $util.escapeJavaScript($util.urlDecode($keyVal[0])) )\n          #if( $keyValSize >= 2 )\n            #set($val = $util.escapeJavaScript($util.urlDecode($keyVal[1])).replaceAll(\"\\\\'\",\"'\"))\n          #else\n            #set( $val = '' )\n          #end\n          \"$key\": \"$val\"#if($foreach.hasNext),#end\n        #end\n      #end\n      }\n    #end\n\n    #define( $loop )\n      {\n      #foreach($key in $map.keySet())\n          \"$util.escapeJavaScript($key)\":\n            \"$util.escapeJavaScript($map.get($key))\"\n            #if( $foreach.hasNext ) , #end\n      #end\n      }\n    #end\n\n    {\n      \"body\": $body,\n      \"method\": \"$context.httpMethod\",\n      \"principalId\": \"$context.authorizer.principalId\",\n      \"stage\": \"$context.stage\",\n\n      #set( $map = $input.params().header )\n      \"headers\": $loop,\n\n      #set( $map = $input.params().querystring )\n      \"query\": $loop,\n\n      #set( $map = $input.params().path )\n      \"path\": $loop,\n\n      #set( $map = $context.identity )\n      \"identity\": $loop,\n\n      #set( $map = $stageVariables )\n      \"stageVariables\": $loop\n    }\n  ",
+            "application/x-www-form-urlencoded": "\n    #define( $body )\n      {\n      #foreach( $token in $input.path('$').split('&') )\n        #set( $keyVal = $token.split('=') )\n        #set( $keyValSize = $keyVal.size() )\n        #if( $keyValSize >= 1 )\n          #set( $key = $util.escapeJavaScript($util.urlDecode($keyVal[0])) )\n          #if( $keyValSize >= 2 )\n            #set($val = $util.escapeJavaScript($util.urlDecode($keyVal[1])).replaceAll(\"\\\\'\",\"'\"))\n          #else\n            #set( $val = '' )\n          #end\n          \"$key\": \"$val\"#if($foreach.hasNext),#end\n        #end\n      #end\n      }\n    #end\n\n    \n  #define( $loop )\n    {\n    #foreach($key in $map.keySet())\n        #set( $k = $util.escapeJavaScript($key) )\n        #set( $v = $util.escapeJavaScript($map.get($key)).replaceAll(\"\\\\'\", \"'\") )\n        \"$k\":\n          \"$v\"\n          #if( $foreach.hasNext ) , #end\n    #end\n    }\n  #end\n\n  {\n    \"body\": $body,\n    \"method\": \"$context.httpMethod\",\n    \"principalId\": \"$context.authorizer.principalId\",\n    \"stage\": \"$context.stage\",\n\n    \"cognitoPoolClaims\" : {\n       \n       \"sub\": \"$context.authorizer.claims.sub\"\n    },\n\n    #set( $map = $input.params().header )\n    \"headers\": $loop,\n\n    #set( $map = $input.params().querystring )\n    \"query\": $loop,\n\n    #set( $map = $input.params().path )\n    \"path\": $loop,\n\n    #set( $map = $context.identity )\n    \"identity\": $loop,\n\n    #set( $map = $stageVariables )\n    \"stageVariables\": $loop\n  }\n\n  ",
             "text/xhtml": "{ \"sourceip\" : \"$context.identity.sourceIp\" }"
           },
           "IntegrationResponses": [
@@ -118,49 +118,49 @@
             },
             {
               "StatusCode": 400,
-              "SelectionPattern": ".*\\[400\\].*",
+              "SelectionPattern": "[\\s\\S]*\\[400\\][\\s\\S]*",
               "ResponseParameters": {},
               "ResponseTemplates": {}
             },
             {
               "StatusCode": 401,
-              "SelectionPattern": ".*\\[401\\].*",
+              "SelectionPattern": "[\\s\\S]*\\[401\\][\\s\\S]*",
               "ResponseParameters": {},
               "ResponseTemplates": {}
             },
             {
               "StatusCode": 403,
-              "SelectionPattern": ".*\\[403\\].*",
+              "SelectionPattern": "[\\s\\S]*\\[403\\][\\s\\S]*",
               "ResponseParameters": {},
               "ResponseTemplates": {}
             },
             {
               "StatusCode": 404,
-              "SelectionPattern": ".*\\[404\\].*",
+              "SelectionPattern": "[\\s\\S]*\\[404\\][\\s\\S]*",
               "ResponseParameters": {},
               "ResponseTemplates": {}
             },
             {
               "StatusCode": 422,
-              "SelectionPattern": ".*\\[422\\].*",
+              "SelectionPattern": "[\\s\\S]*\\[422\\][\\s\\S]*",
               "ResponseParameters": {},
               "ResponseTemplates": {}
             },
             {
               "StatusCode": 500,
-              "SelectionPattern": ".*(Process\\s?exited\\s?before\\s?completing\\s?request|\\[500\\]).*",
+              "SelectionPattern": "[\\s\\S]*(Process\\s?exited\\s?before\\s?completing\\s?request|\\[500\\])[\\s\\S]*",
               "ResponseParameters": {},
               "ResponseTemplates": {}
             },
             {
               "StatusCode": 502,
-              "SelectionPattern": ".*\\[502\\].*",
+              "SelectionPattern": "[\\s\\S]*\\[502\\][\\s\\S]*",
               "ResponseParameters": {},
               "ResponseTemplates": {}
             },
             {
               "StatusCode": 504,
-              "SelectionPattern": ".*\\[504\\].*",
+              "SelectionPattern": "[\\s\\S]*\\[504\\][\\s\\S]*",
               "ResponseParameters": {},
               "ResponseTemplates": {}
             }
@@ -215,7 +215,7 @@
         ]
       }
     },
-    "ApiGatewayDeployment1483904405889": {
+    "ApiGatewayDeployment1485530042484": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -241,7 +241,7 @@
           }
         ]
       },
-      "DependsOn": "ApiGatewayDeployment1483904405889"
+      "DependsOn": "ApiGatewayDeployment1485530042484"
     },
     "CheckIPLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
@@ -327,6 +327,23 @@
                 }
               ]
             }
+          },
+          {
+            "PolicyName": "LambdaEC2SecGroupPolicy",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "ec2:DescribeSecurityGroups",
+                    "ec2:AuthorizeSecurityGroupIngress",
+                    "ec2:RevokeSecurityGroupIngress"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
           }
         ]
       }
@@ -356,7 +373,7 @@
     "CheckIPLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CheckIPLambdaVersionCVFNwLpdJo426DLfPlbFYA8aX7ZjjWU41kMKwGn4BaM"
+        "Ref": "CheckIPLambdaVersionJlmCZzNfl4Ahe0suWJdbbv586DD5ctXeHUD0QOFEwoc"
       }
     },
     "ServiceEndpoint": {
