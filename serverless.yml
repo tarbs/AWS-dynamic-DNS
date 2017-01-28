@@ -45,8 +45,20 @@ functions:
           integration: lambda
           request:
             template:
-              application/json: '{ "sourceip" : "$context.identity.sourceIp" }'
-              text/xhtml: '{ "sourceip" : "$context.identity.sourceIp" }'
+              application/json: '{ "sourceip" : "$context.identity.sourceIp", "input": "$input.params()" }'
+              text/xhtml: '{ "sourceip" : "$context.identity.sourceIp", "input": "$input.params()"}'
+      - http:
+          private: true
+          method: get
+          path: checkIP/{requested_address}
+          integration: lambda
+          request:
+            template:
+              application/json: '{ "sourceip" : "$context.identity.sourceIp", "input": "$input.params()" }'
+              text/xhtml: '{ "sourceip" : "$context.identity.sourceIp", "input": "$input.params()"}'
+            parameters:
+              path:
+                requested_address: false
 
 resources:
   Resources:
@@ -122,7 +134,7 @@ resources:
 # you can add packaging information here
 #package:
 #  include:
-#    - include-me.py
+#    - .vendor/**
 #    - include-me-dir/**
 #  exclude:
 #    - exclude-me.py

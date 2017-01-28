@@ -1,12 +1,15 @@
+"""checkIP lambda function to update DNS and ec2 security groups"""
 import os
 import re
 import logging
 import boto3
 
+
 LOGGER = logging.getLogger()
 LOGGER.setLevel(logging.INFO)
 
 def checkIP(event, context):
+    """main body of checkIP lambda function"""
 
     # TODO ensure that function will create new recordset if required.
     # TODO add tests
@@ -22,6 +25,21 @@ def checkIP(event, context):
     dns_ttl_string = os.environ["DNS_TTL"]
 
     LOGGER.info('Received event{}'.format(event))
+
+    # Check to see if the DNS address was supplied as a path parameter
+    # If not then use the environment variable
+
+    input_contents = event["input"]
+    path_contents = re.search('path=(.+?)}', input_contents)
+    if path_contents is not None:
+        address_search_results = re.search('requested_address=(.+?)}', path_contents.group(0))
+
+    if address_search_results is not None:
+        LOGGER.info("Found DNS address in URL path")
+        dns_address_string = address_search_results.group(1)
+    else:
+        LOGGER.info("No DNS address in URL path - using lambda environment variable")
+
     LOGGER.info('  Hosted Zone : ' + hosted_zone_name)
     LOGGER.info('  DNS address : ' + dns_address_string)
     LOGGER.info('  TTL value   : ' + dns_ttl_string)
@@ -37,7 +55,7 @@ def checkIP(event, context):
 
     # Validate the supplied DNS address
     if is_valid_hostname(dns_address_string):
-        dns_address = add_trailing_dot(dns_address_string)
+        dns_address_string = add_trailing_dot(dns_address_string)
     else:
         error = True
         error_message = "The supplied DNS address is not a valid domain name" \
@@ -62,17 +80,17 @@ def checkIP(event, context):
             hosted_zone_id = r53_zone_response['HostedZones'][0]['Id'].split('/')[2]
         else:
             hosted_zone_id = r53_zone_response['HostedZones'][0]['Id']
-    
+
         r53_recordset_response = r53_client.list_resource_record_sets(
             HostedZoneId=hosted_zone_id,
-            StartRecordName=dns_address)
-    
+            StartRecordName=dns_address_string)
+
         current_ip_value = ""
         for resource_record_set in r53_recordset_response["ResourceRecordSets"]:
             if resource_record_set["Name"] == dns_address_string:
                 for val in resource_record_set["ResourceRecords"]:
                     current_ip_value = val["Value"]
-    
+
         if current_ip_value <> source_ip:
 
             # Update any marked security groups

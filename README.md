@@ -2,7 +2,8 @@
 
 Dynamic DNS via AWS for those without static IPs.
 
-Currently only supports a single target DNS alias.
+Supports either a single DNS address to be updated which is held in the environment variables (see installation instructions),
+or can update multiple DNS aliases (one per call) by specifying the DNS address to update at the end of the URL path.
 
 Can be used to update EC2 security groups to enable ingress from the IP address calling the function.
 
@@ -25,9 +26,14 @@ Created with Serverless v1.5
 6. Record the __endpoint__ address of the deployed API - this is the address you will be calling.
 7. Call the API from the IP address that you want Dynamic DNS for (remembering to supply the API Key).
 
-An example Linux curl command:
+An example Linux curl command using the DNS alias held in __AWS-DNS-address__:
 
     curl -H "x-api-key: <your API key here>" -H "Content-Type: application/json" <your API endpoint address here>
+
+An example Linux curl command using a DNS alias specified in the URL path:
+
+    curl -H "x-api-key: <your API key here>" -H "Content-Type: application/json" <your API endpoint address here>__/<target.dns.alias>__
+
 
 ##Using the EC2 Security Group update feature
 
@@ -58,6 +64,5 @@ The deployment will set up its own IAM role that only has the minimum Route53 an
 
 ##TODO
 
-* Make the Dynamic DNS address to be updated an API parameter to be supplied on each call (to enable the API to handle multiple DNS addresses)
 * Add some simple Dynamic DNS client utils for different platforms.
 * A whole bunch of bulletproofing for each API call.
