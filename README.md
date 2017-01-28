@@ -30,9 +30,9 @@ An example Linux curl command using the DNS alias held in __AWS-DNS-address__:
 
     curl -H "x-api-key: <your API key here>" -H "Content-Type: application/json" <your API endpoint address here>
 
-An example Linux curl command using a DNS alias specified in the URL path:
+An example Linux curl command using a DNS alias specified in the URL path (www.example.com):
 
-    curl -H "x-api-key: <your API key here>" -H "Content-Type: application/json" <your API endpoint address here>**/target.dns.alias**
+    curl -H "x-api-key: <your API key here>" -H "Content-Type: application/json" <your API endpoint address here>/www.example.com
 
 
 ##Using the EC2 Security Group update feature
