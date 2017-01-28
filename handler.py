@@ -18,7 +18,7 @@ def checkIP(event, context):
     source_ip = ""
     source_ip_string = event["sourceip"]
     hosted_zone_name = os.environ["ZONE_NAME"]
-    dns_address_string = os.environ["dns_address"]
+    dns_address_string = os.environ["DNS_ADDRESS"]
     dns_ttl_string = os.environ["DNS_TTL"]
 
     LOGGER.info('Received event{}'.format(event))
