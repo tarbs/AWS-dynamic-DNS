@@ -64,5 +64,6 @@ The deployment will set up its own IAM role that only has the minimum Route53 an
 
 ##TODO
 
+* Update security group handling to be specific to a specified DNS alias (current behaviour is that all security groups update with any DNS alias updates)
 * Add some simple Dynamic DNS client utils for different platforms.
 * A whole bunch of bulletproofing for each API call.
