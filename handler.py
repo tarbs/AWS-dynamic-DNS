@@ -91,7 +91,7 @@ def checkIP(event, context):
                 for val in resource_record_set["ResourceRecords"]:
                     current_ip_value = val["Value"]
 
-        if current_ip_value <> source_ip:
+        if current_ip_value != source_ip:
 
             # Update any marked security groups
             modify_ec2_security_groups(source_ip, current_ip_value)
@@ -150,7 +150,7 @@ def add_trailing_dot(input_string):
     """Ensure that there is a trailing '.' on the string"""
 
     if len(input_string) > 0:
-        if input_string[-1] <> ".":
+        if input_string[-1] != ".":
             return input_string + "."
     return input_string
 
